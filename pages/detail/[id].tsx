@@ -17,6 +17,25 @@ interface IProps {
 const Detail = ({ postDetails }: IProps) => {
   console.log(postDetails);
   const [post, setPost] = useState<Video>(postDetails);
+  const [playing, setPlaying] = useState<boolean>(false);
+  const [isVideoMuted, setIsVideoMuted] = useState<boolean>(false);
+  const router = useRouter();
+
+  const onVideoClick = () => {
+    if (playing) {
+      videoRef.current?.pause();
+      setPlaying(false);
+    } else {
+      videoRef.current?.play();
+      setPlaying(true);
+    }
+  };
+
+  useEffect(() => {
+    if (post && videoRef?.current) {
+      videoRef.current.muted = isVideoMuted;
+    }
+  }, [isVideoMuted, post]);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   if (!post) return null;
@@ -28,17 +47,43 @@ const Detail = ({ postDetails }: IProps) => {
     >
       <div
         className="relative flex-2 w-[1000px] lg:w-9/12 
-      flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover bg-center"
+      flex justify-center items-center bg-black"
       >
         <div className="absolute top-6 left-2 lg:left-6 flex gap-6 z-50">
-          <p>
+          <p className="cursor-pointer" onClick={() => router.back()}>
             <MdOutlineCancel className="text-white text-[35px]" />
           </p>
         </div>
         <div className="relative">
           <div className="lg:h-[100vh] h-[60vh]">
-            <video src={post.video.asset.url}></video>
+            <video
+              ref={videoRef}
+              loop
+              onClick={onVideoClick}
+              src={post.video.asset.url}
+              className="h-full cursor-pointer"
+            ></video>
           </div>
+
+          <div className="absolute top-[45%] left-[45%] cursor-pointer">
+            {!playing && (
+              <button onClick={onVideoClick}>
+                <BsFillPlayFill className="text-white text-6xl lg:text-8xl" />
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="absolute bottom-5 lg:bottom-10 right-5 lg:right-10 cursor-pointer">
+          {isVideoMuted ? (
+            <button onClick={() => setIsVideoMuted(false)}>
+              <HiVolumeOff className="text-white text-2xl lg:text-4xl" />
+            </button>
+          ) : (
+            <button onClick={() => setIsVideoMuted(true)}>
+              <HiVolumeUp className="text-white text-2xl lg:text-4xl" />
+            </button>
+          )}
         </div>
       </div>
     </div>
