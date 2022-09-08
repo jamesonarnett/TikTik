@@ -9,9 +9,11 @@ export default async function handler(
   if (req.method === "GET") {
     const { id } = req.query;
     const query = postDetailQuery(id);
+    // console.log(query);
 
     const data = await client.fetch(query);
 
+    // console.log(data);
     res.status(200).json(data[0]);
   }
 }
