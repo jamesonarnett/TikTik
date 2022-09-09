@@ -19,9 +19,18 @@ interface IProps {
 const Profile = ({ data }: IProps) => {
   const { user, userVideos, userLikedVideos } = data;
   const [showUserVideos, setShowUserVideos] = useState(true);
+  const [videosList, setVideosList] = useState<Video[]>([]);
 
   const videos = showUserVideos ? "border-b-2 border-black" : "text-gray-400";
   const liked = !showUserVideos ? "border-b-2 border-black" : "text-gray-400";
+
+  useEffect(() => {
+    if (showUserVideos) {
+      setVideosList(userVideos);
+    } else {
+      setVideosList(userLikedVideos);
+    }
+  }, [showUserVideos, userLikedVideos, userVideos]);
 
   return (
     <div className="w-full">
@@ -72,7 +81,17 @@ const Profile = ({ data }: IProps) => {
           </p>
         </div>
 
-        <div className="flex gap-6 flex-wrap md:justify-start"></div>
+        <div className="flex gap-6 flex-wrap md:justify-start">
+          {videosList.length > 0 ? (
+            videosList.map((post: Video, idx: number) => (
+              <VideoCard key={idx} post={post} />
+            ))
+          ) : (
+            <NoResults
+              text={`No ${showUserVideos ? "" : "Liked"} Videos Yet `}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
