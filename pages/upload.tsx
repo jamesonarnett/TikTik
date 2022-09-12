@@ -27,6 +27,7 @@ const Upload = () => {
     const fileTypes = ["video/mp4", "video/webm", "video/ogg"];
 
     if (fileTypes.includes(selectedFile.type)) {
+      setIsLoading(true);
       client.assets
         .upload("file", selectedFile, {
           contentType: selectedFile.type,
@@ -74,8 +75,8 @@ const Upload = () => {
      mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center"
     >
       <div
-        className="bg-white rounded-lg xl:h-[80vh]
-      w-[60%] flex gap-6 flex-wrap justify-between items-center p-14 pt-6"
+        className="bg-white rounded-lg xl:h-[80vh] sm:w-[90%] lg:w-[85%]
+       flex gap-6 flex-wrap justify-center items-center p-14 pt-6"
       >
         <div>
           <div>
@@ -87,20 +88,20 @@ const Upload = () => {
           <div
             className="border-dashed rounded-xl 
           border-4 border-gray-200 flex flex-col justify-center 
-          items-center outline-none mt-10 w-[260px] h-[460px] 
+          items-center outline-none mt-10 w-[350px] h-[460px] 
           p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100"
           >
             {isLoading ? (
               <p>Uploading...</p>
             ) : (
-              <div>
+              <div className="flex lg:w-[260px] justify-center m-auto ">
                 {videoAsset ? (
                   <div>
                     <video
                       src={videoAsset.url}
                       loop
                       controls
-                      className="rounded-xl h-[450px] mt-16 bg-black"
+                      className="rounded-xl h-[450px] bg-black"
                     ></video>
                   </div>
                 ) : (
