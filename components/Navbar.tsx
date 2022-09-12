@@ -25,7 +25,7 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="w-full flex justify-between items-center border-b-2 border-grey-200 py-1 px-4">
+    <div className="w-full flex py-2 px-2 justify-between items-center border-b-2 border-grey-200">
       <Link href="/">
         <div className="w-[100px] md:w-[130px]">
           <Image
@@ -49,7 +49,7 @@ export const Navbar = () => {
             placeholder="Search Accounts and Videos"
             className="bg-primary p-3 md:text-md font-medium
             border-2 border-gray-100 focus:outline-none
-            focus:border-2 focus:border-gray-300 w-[300px]
+            focus:border-2 focus:border-gray-300 lg:w-[500px]
             md:w-[350px] rounded-full md:top-0"
           />
           <button
