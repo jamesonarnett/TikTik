@@ -37,9 +37,9 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
       <div>
-        <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
-          <div className="md:w-16 md:h-16 w-10 h-10">
-            <Link href={`/profile/${post.postedBy._id}`}>
+        <div className="flex gap-3 p-2 font-semibold rounded">
+          <Link href={`/profile/${post.postedBy._id}`}>
+            <div className="md:w-16 md:h-16 w-10 h-10 cursor-pointer">
               <>
                 <Image
                   width={62}
@@ -50,11 +50,11 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                   layout="responsive"
                 />
               </>
-            </Link>
-          </div>
+            </div>
+          </Link>
           <div>
             <Link href={`/profile/${post.postedBy._id}`}>
-              <div className="flex items-center gap-2">
+              <div className="flex cursor-pointer items-center gap-2">
                 <p className="flex gap-2 items-center md:text-md font-bold text-primary">
                   {post.postedBy.userName}{" "}
                   <GoVerified className="text-blue-400 text-md" />
@@ -68,7 +68,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
         </div>
       </div>
 
-      <div className="lg:ml-20 flex gap-4 relative">
+      <div className="md:ml-20 mr-2 flex gap-4 relative">
         <div
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
@@ -78,7 +78,7 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             <video
               ref={videoRef}
               loop
-              className="lg:w-[600px] h-[300px] md:h-[400px] lg:h[530px] w-[200px rounded-2xl cursor-pointer bg-black"
+              className="lg:w-[600px] h-[300px] md:h-[400px] lg:h-[530px] md:w-[425px] w-[350px] rounded-2xl cursor-pointer bg-black"
               src={post.video.asset.url}
             ></video>
           </Link>
