@@ -20,7 +20,7 @@ const LikeButton = ({ handleLike, handleDislike, likes }: IProps) => {
     } else {
       setAlreadyLiked(false);
     }
-  }, [likes]);
+  }, [filterLikes, likes]);
 
   return (
     <div className=" flex gap-6">
